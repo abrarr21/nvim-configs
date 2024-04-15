@@ -1,3 +1,13 @@
+--This configuration sets up several plugins for Neovim's completion using nvim-cmp and related plugins (cmp-nvim-lsp, LuaSnip, etc.). It configures cmp to work with LuaSnip for snippets and uses various mappings for completion and navigation within the completion menu. It also specifies the sources for completion, prioritizing luasnip and including buffer as a source. This setup enhances Neovim's autocompletion and snippet capabilities.
+
+--    <C-b>: Scrolls up within the completion menu by calling cmp.mapping.scroll_docs(-4).
+--    <C-f>: Scrolls down within the completion menu by calling cmp.mapping.scroll_docs(4).
+--    <C-Space>: Triggers completion by calling cmp.mapping.complete().
+--    <C-e>: Aborts the completion menu by calling cmp.mapping.abort().
+--    <CR> (Enter key): Confirms the currently selected item in the completion menu. The { select = true }   option means it will automatically select the item upon pressing Enter.
+
+--These mappings enhance the usability of the completion menu provided by nvim-cmp:
+
 return {
     {
         "hrsh7th/cmp-nvim-lsp"
