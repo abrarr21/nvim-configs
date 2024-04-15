@@ -1,4 +1,3 @@
-Certainly! Here's a sample README.md file you can include in your repository to provide information about your neovim (nvim) configuration for beginners:
 Neovim Configuration for Beginners
 
 Welcome to this repository containing Neovim (nvim) configurations tailored for beginners. This setup aims to provide a starting point for those new to Neovim, offering a clean and comprehensible configuration.
@@ -11,17 +10,17 @@ Installation
 
 To use this configuration:
 
-    Clone this repository to your local machine:
+Clone this repository to your local machine:
 
-    bash
+bash
 
-git clone <repository_url>
+    git clone <repository_url>
 
 Navigate into the cloned directory:
 
 bash
 
-cd nvim-config-beginner
+    cd nvim-config-beginner
 
 Copy the configuration files to your Neovim configuration directory (~/.config/nvim/):
 
