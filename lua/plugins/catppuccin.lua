@@ -18,3 +18,9 @@ return {
 --         vim.cmd [[ colorscheme NeoSolarized ]]
 --       end
 --   }
+
+-- return {
+--     "folke/tokyonight.nvim",
+--     lazy = true,
+--     opts = { style = "moon" },
+--   }
