@@ -10,6 +10,8 @@
 --     end
 -- }
 
+
+
 -- return {
 --     "Tsuzat/NeoSolarized.nvim",
 --       lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -19,11 +21,17 @@
 --       end
 --   }
 
+
+
 -- return {
 --     "folke/tokyonight.nvim",
 --     lazy = true,
 --     opts = { style = "moon" },
 --   }
+
+
+
+
 
 return {
     "folke/tokyonight.nvim",
@@ -70,3 +78,6 @@ return {
       vim.cmd("colorscheme tokyonight")
     end,
   }
+
+
+

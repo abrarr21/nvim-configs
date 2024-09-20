@@ -20,8 +20,6 @@
 
 -- -- These configurations enhance Neovim with snippet management and language server support, improving development capabilities with integrated key mappings for LSP interactions.
 
-
-
 -- return {
 --     {
 --         "williamboman/mason.nvim",
@@ -64,56 +62,72 @@
 --             lspconfig.cssls.setup({ capabilities = capabilities })
 --             lspconfig.bashls.setup({ capabilities = capabilities })
 
-
 --             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
 --             vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 --             vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {})
 --             vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
 --         end,
 --     },
-    
+
 -- }
 
 return {
-    {
-        "williamboman/mason.nvim",
-        lazy = false,
-        config = function()
-            require("mason").setup()
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        lazy = false,
-        opts = {
-            auto_install = true,
-        },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        lazy = false,
-        config = function()
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	{
+		"williamboman/mason.nvim",
+		lazy = false,
+		config = function()
+			require("mason").setup()
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		lazy = false,
+		opts = {
+			auto_install = true,
+		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		lazy = false,
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local lspconfig = require("lspconfig")
+			local lspconfig = require("lspconfig")
 
-            local servers = {
-                "lua_ls", "clangd", "dockerls", "docker_compose_language_service",
-                "html", "jsonls", "tsserver", "prismals", "tailwindcss",
-                "yamlls", "vtsls", "taplo", "cssls", "bashls"
-            }
+			local servers = {
+				"lua_ls",
+				"clangd",
+				"dockerls",
+				"docker_compose_language_service",
+				"html",
+				"jsonls",
+				"tsserver",
+				"prismals",
+				"tailwindcss",
+				"yamlls",
+				"vtsls",
+				"taplo",
+				"cssls",
+				"bashls",
+				"vacuum",
+				"sqls",
+				"gopls",
+				"jdtls",
+				"ast_grep",
+				"solidity_ls",
+			}
 
-            for _, server_name in ipairs(servers) do
-                if server_name == "tsserver" then
-                    server_name = "ts_ls"
-                end
-                lspconfig[server_name].setup({ capabilities = capabilities })
-            end
+			for _, server_name in ipairs(servers) do
+				if server_name == "tsserver" then
+					server_name = "ts_ls"
+				end
+				lspconfig[server_name].setup({ capabilities = capabilities })
+			end
 
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-            vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-            vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {})
-            vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
-        end,
-    },
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+		end,
+	},
 }
