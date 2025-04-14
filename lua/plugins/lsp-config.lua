@@ -72,62 +72,100 @@
 -- }
 
 return {
-	{
-		"williamboman/mason.nvim",
-		lazy = false,
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
-		opts = {
-			auto_install = true,
-		},
-	},
-	{
-		"neovim/nvim-lspconfig",
-		lazy = false,
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    opts = {
+      auto_install = true,
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local lspconfig = require("lspconfig")
+      local lspconfig = require("lspconfig")
 
-			local servers = {
-				"lua_ls",
-				"clangd",
-				"dockerls",
-				"docker_compose_language_service",
-				"html",
-				"jsonls",
-				"tsserver",
-				"prismals",
-				"tailwindcss",
-				"yamlls",
-				"vtsls",
-				"taplo",
-				"cssls",
-				"bashls",
-				"vacuum",
-				"sqls",
-				"gopls",
-				"jdtls",
-				"ast_grep",
-				"solidity_ls",
-			}
+      local servers = {
+        "lua_ls",
+        "clangd",
+        "dockerls",
+        "docker_compose_language_service",
+        "html",
+        "jsonls",
+        "tsserver",
+        "prismals",
+        "tailwindcss",
+        "yamlls",
+        "vtsls",
+        "taplo",
+        "cssls",
+        "bashls",
+        "vacuum",
+        "sqls",
+        "gopls",
+        "jdtls",
+        "ast_grep",
+        "solidity_ls",
+      }
 
-			for _, server_name in ipairs(servers) do
-				if server_name == "tsserver" then
-					server_name = "ts_ls"
-				end
-				lspconfig[server_name].setup({ capabilities = capabilities })
-			end
+      for _, server_name in ipairs(servers) do
+        if server_name == "tsserver" then
+          server_name = "ts_ls"
+        end
 
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-		end,
-	},
+        -- Added tailwindcss v4 from here
+
+        if server_name == "tailwindcss" then
+          lspconfig.tailwindcss.setup({
+            capabilities = capabilities,
+            filetypes = {
+              "html",
+              "css",
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "svelte",
+              "vue",
+            },
+            settings = {
+              tailwindCSS = {
+                experimental = {
+                  classRegex = {
+                    'class:\\s*"([^"]*)"',
+                    'className:\\s*"([^"]*)"',
+                    "tw\\(['\"`]([^'\"`]*)['\"`]\\)",
+                    { "clsx\\(([^)]*)\\)",       "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                    { "classnames\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                  },
+                },
+                includeLanguages = {
+                  typescript = "javascript",
+                  typescriptreact = "html",
+                },
+              },
+            },
+          })
+        else
+          lspconfig[server_name].setup({ capabilities = capabilities })
+        end
+
+        -- Ends here, if removing this then add lspconfig[server_name].setup({ capabilities = capabilities }) here
+      end
+
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+    end,
+  },
 }

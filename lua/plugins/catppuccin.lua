@@ -1,16 +1,14 @@
 --This configuration sets up the "catppuccin/nvim" plugin to load immediately with priority 1000 under the name "catppuccin". It applies a specific color scheme named "catppuccin" to Neovim upon initialization.
 
 return {
-    "catppuccin/nvim", 
-    lazy = false,
-    name = "catppuccin", 
-    priority = 1000,
-    config = function()
-        vim.cmd.colorscheme "catppuccin"
-    end
+  "catppuccin/nvim",
+  lazy = false,
+  name = "catppuccin",
+  priority = 1000,
+  config = function()
+    vim.cmd.colorscheme("catppuccin")
+  end,
 }
-
-
 
 -- return {
 --     "Tsuzat/NeoSolarized.nvim",
@@ -21,24 +19,18 @@ return {
 --       end
 --   }
 
-
-
 -- return {
---     "folke/tokyonight.nvim",
---     lazy = true,
---     opts = { style = "moon" },
---   }
-
-
-
-
+--   "folke/tokyonight.nvim",
+--   lazy = true,
+--   opts = { style = "moon" },
+-- }
 
 -- return {
 --     "folke/tokyonight.nvim",
 --     priority = 1000,
 --     config = function()
 --       local transparent = true -- set to true if you would like to enable transparency
-  
+
 --       local bg = "#011628"
 --       local bg_dark = "#011423"
 --       local bg_highlight = "#143652"
@@ -48,7 +40,7 @@ return {
 --       local fg_dark = "#B4D0E9"
 --       local fg_gutter = "#627E97"
 --       local border = "#547998"
-  
+
 --       require("tokyonight").setup({
 --         style = "night",
 --         transparent = transparent,
@@ -74,10 +66,7 @@ return {
 --           colors.fg_sidebar = fg_dark
 --         end,
 --       })
-  
+
 --       vim.cmd("colorscheme tokyonight")
 --     end,
 --   }
-
-
-
