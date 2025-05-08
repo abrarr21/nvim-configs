@@ -1,36 +1,7 @@
-vim.cmd("let g:netrw_liststyle = 3")
-
-local opt = vim.opt
-
-opt.relativenumber = true
-opt.number = true
-
-opt.autoindent = true
-
-opt.ignorecase = true
-opt.smartcase = true
-
-opt.cursorline = true
-opt.signcolumn = "yes"
-opt.background = "dark"
-
-opt.clipboard:append("unnamedplus")
-
---split windows
-opt.splitright = true --split vertical window to the right
-opt.splitbelow = true --split horizontal window to the bottom
-
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.autoindent = true
-
-opt.wrap = true
+local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
-vim.g.background = "light"
-
-vim.wo.number = true
+vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>") --in normal mode to move to the pane above.
 vim.keymap.set("n", "<c-j>", ":wincmd j<CR>") --in normal mode to move to the pane below.
@@ -67,7 +38,7 @@ vim.keymap.set("i", "<C-k>", "<Up>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true, silent = true })
 
 -- Save files with ctrl+s
-vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { noremap = true, silent = true })
 
 -- Vertical Scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
@@ -76,9 +47,33 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
 -- Delete single characters without copying into register
 vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true })
 
+-- Delete without Yanking
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d"]])
+
 -- Move a line up and down
 vim.keymap.set("n", "<A-k>", ":move -2<CR>==", { desc = "Move line up" })
 vim.keymap.set("n", "<A-j>", ":move +1<CR>==", { desc = "Move line down" })
 
+-- Move the selected para up and down
+vim.keymap.set("v", "<A-k>", ":move '<-2<CR>gv=gv", { desc = "Move line up in visual mode" })
+vim.keymap.set("v", "<A-j>", ":move '>+1<CR>gv=gv", { desc = "Move line down" })
+
 -- Clear the clipboard
 vim.api.nvim_set_keymap("n", "<leader>cb", ":let @+ = ''<CR>", { noremap = true, silent = true })
+
+-- Searched item will be centred in the middle
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- Move the selected text right and left
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
+
+-- Highlight Yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
