@@ -115,84 +115,86 @@ return {
 				desc = "Lazygit Logs",
 			},
 			{
-				"<leader>es",
+				"<leader>e",
 				function()
 					require("snacks").explorer()
 				end,
 				desc = "Open Snacks Explorer ",
 			},
 			{
-				"<leader>rN",
+				"<leader>rn",
 				function()
 					require("snacks").rename.rename_file()
 				end,
 				desc = "Fast Rename Current File ",
 			},
-			{
-				"<leader>dB",
-				function()
-					require("snacks").bufdelete()
-				end,
-				desc = "Delete or Close Buffer (Confirm)",
-			},
-			-- Snack Picker
-			{
-				"<leader>pf",
-				function()
-					require("snacks").picker.files()
-				end,
-				desc = "Find Files (Snack Picker) ",
-			},
-			{
-				"<leader>pc",
-				function()
-					require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
-				end,
-				desc = "Find Config File ",
-			},
-			{
-				"<leader>ps",
-				function()
-					require("snacks").picker.grep()
-				end,
-				desc = "Grep Word ",
-			},
-			{
-				"<leader>pws",
-				function()
-					require("snacks").picker.grep_word()
-				end,
-				desc = "Search Visual selection or Word",
-				mode = { "n", "x" },
-			},
-			{
-				"<leader>pk",
-				function()
-					require("snacks").picker.keymaps({ layout = "ivy" })
-				end,
-				desc = "Search Keymaps (Snacks Picker)",
-			},
-			{
-				"<leader>gbr",
-				function()
-					require("snacks").picker.git_branches({ layout = "select" })
-				end,
-				desc = "Pick and Switch Git Branch ",
-			},
-			{
-				"<leader>th",
-				function()
-					require("snacks").picker.colorschemes({ layout = "ivy" })
-				end,
-				desc = "Pick Color Scheme ",
-			},
-			{
-				"<leader>vh",
-				function()
-					require("snacks").picker.help()
-				end,
-				desc = "Help Page ",
-			},
+
+			-------------------------------------- Snack Picker ----------------------------------------------
+			-- {
+			-- 	"<leader>pf",
+			-- 	function()
+			-- 		require("snacks").picker.files()
+			-- 	end,
+			-- 	desc = "Find Files (Snack Picker) ",
+			-- },
+			-- {
+			-- 	"<leader>pc",
+			-- 	function()
+			-- 		require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
+			-- 	end,
+			-- 	desc = "Find Config File ",
+			-- },
+			-- {
+			-- 	"<leader>ps",
+			-- 	function()
+			-- 		require("snacks").picker.grep()
+			-- 	end,
+			-- 	desc = "Grep Word ",
+			-- },
+			-- {
+			-- 	"<leader>pws",
+			-- 	function()
+			-- 		require("snacks").picker.grep_word()
+			-- 	end,
+			-- 	desc = "Search Visual selection or Word",
+			-- 	mode = { "n", "x" },
+			-- },
+			-- {
+			-- 	"<leader>pk",
+			-- 	function()
+			-- 		require("snacks").picker.keymaps({ layout = "ivy" })
+			-- 	end,
+			-- 	desc = "Search Keymaps (Snacks Picker)",
+			-- },
+			-- {
+			-- 	"<leader>pb",
+			-- 	function()
+			-- 		require("snacks").picker.buffers({ layout = "telescope" })
+			-- 	end,
+			-- 	desc = "Find Active Buffers (Snacks Picker)",
+			-- },
+			-- {
+			-- 	"<leader>gbr",
+			-- 	function()
+			-- 		require("snacks").picker.git_branches({ layout = "select" })
+			-- 	end,
+			-- 	desc = "Pick and Switch Git Branch ",
+			-- },
+			-- {
+			-- 	"<leader>th",
+			-- 	function()
+			-- 		require("snacks").picker.colorschemes({ layout = "ivy" })
+			-- 	end,
+			-- 	desc = "Pick Color Scheme ",
+			-- },
+			-- {
+			-- 	"<leader>vh",
+			-- 	function()
+			-- 		require("snacks").picker.help()
+			-- 	end,
+			-- 	desc = "Help Page ",
+			-- },
+			-- --------------------------------------------------------------------------------------------------------
 		},
 	},
 

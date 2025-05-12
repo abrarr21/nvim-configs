@@ -20,14 +20,14 @@ vim.opt.incsearch = true
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.breakindent = true  -- Enable break indent
+vim.opt.breakindent = true -- Enable break indent
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.scrolloff = 6
 vim.opt.signcolumn = "yes"
 
-vim.opt.backspace = {"start", "eol", "indent"}
+vim.opt.backspace = { "start", "eol", "indent" }
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -41,3 +41,5 @@ vim.opt.hlsearch = true
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
+
+vim.opt.termguicolors = true -- Tmux & nvim color blender
