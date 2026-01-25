@@ -71,3 +71,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- Live Server (same as vs code) (enter insert mode in the (live-server)buffer and ctrl+c to stop the live-server)
+vim.keymap.set("n", "<leader>ls", function()
+	vim.cmd("terminal live-server")
+end)

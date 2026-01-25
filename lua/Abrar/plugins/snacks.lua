@@ -4,6 +4,8 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
+
+			-- Snacks Explorer
 			-- HACK: doc @ github.com/folke/snacks.nvim/blob/main/docs
 			explorer = {
 				enabled = true,
@@ -16,6 +18,7 @@ return {
 				exclude = { "latex" },
 			},
 
+			-- Snacks Picker
 			--HACK: read picker doc @ github.com/folke/snack.nvim/blob/man/docs/picker.md
 			picker = {
 				enabled = true,
@@ -82,6 +85,8 @@ return {
 					},
 				},
 			},
+
+			-- Snacks dashboard
 			dashboard = {
 				enabled = true,
 				sections = {
@@ -128,6 +133,8 @@ return {
 				end,
 				desc = "Fast Rename Current File ",
 			},
+
+			-------------------------------------------------------------------------------------------------
 
 			-------------------------------------- Snack Picker ----------------------------------------------
 			-- {

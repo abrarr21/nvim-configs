@@ -26,10 +26,10 @@ return {
 		require("bufferline").setup(opts)
 
 		-- Buffer navigation keymaps
-		vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete buffer" })
+		vim.keymap.set("n", "<leader>dd", ":bdelete<CR>", { desc = "Delete buffer" })
 		vim.keymap.set("n", "<leader>bn", ":enew<CR>", { desc = "New buffer" })
-		vim.keymap.set("n", "<leader>1", ":bnext<CR>", { desc = "Next buffer" })
-		vim.keymap.set("n", "<leader>2", ":bprevious<CR>", { desc = "Previous buffer" })
+		vim.keymap.set("n", "<leader>2", ":bnext<CR>", { desc = "Next buffer" })
+		vim.keymap.set("n", "<leader>1", ":bprevious<CR>", { desc = "Previous buffer" })
 
 		-- Tab management keymaps
 		vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })

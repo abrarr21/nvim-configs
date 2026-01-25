@@ -46,6 +46,11 @@ return {
 		-- Auto format on save
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function(args)
+				local ft = vim.bo[args.buf].filetype
+				if ft == "sql" then
+					return
+				end
+
 				require("conform").format({
 					bufnr = args.buf,
 					lsp_fallback = true,

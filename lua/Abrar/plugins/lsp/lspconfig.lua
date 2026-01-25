@@ -83,9 +83,7 @@ return {
 		--------------------------------------------------------------------------------
 		-- BEGIN: lua_ls fix for "undefined global 'vim'" diagnostic
 		--------------------------------------------------------------------------------
-		local lspconfig = require("lspconfig")
-
-		lspconfig.lua_ls.setup({
+		vim.lsp.config("lua_ls", {
 			settings = {
 				Lua = {
 					diagnostics = {
@@ -94,6 +92,8 @@ return {
 				},
 			},
 		})
+
+		vim.lsp.enable("lua_ls")
 		--------------------------------------------------------------------------------
 		-- END: lua_ls fix for "undefined global 'vim'" diagnostic
 		--------------------------------------------------------------------------------
