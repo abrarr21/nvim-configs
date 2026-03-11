@@ -3,11 +3,9 @@ return {
 	config = function()
 		require("neoscroll").setup({
 			mappings = {
-				"<C-u>",
-				"<C-d>",
-				"<C-b>",
-				"<C-f>",
-				"<C-y>",
+				"<C-u>", -- scroll half-page up
+				"<C-d>", -- scroll half-page down
+				"<C-y>", -- scroll by one line
 				"<C-e>",
 				"zt",
 				"zz",

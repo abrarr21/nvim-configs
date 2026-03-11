@@ -1,3 +1,4 @@
+-- telescope.nvim = fuzzy finder + picker(Files, buffers, grep, git branches, colorschemes, etc) using extensions(fzf)
 return {
 	"nvim-telescope/telescope.nvim",
 	build = ":TSUpdate",
@@ -23,8 +24,8 @@ return {
 					i = {
 						["<C-k>"] = actions.move_selection_previous,
 						["<C-j>"] = actions.move_selection_next,
-						["<C-u>"] = actions.preview_scrolling_up,
-						["<C-d>"] = actions.preview_scrolling_down,
+						["<C-b>"] = actions.preview_scrolling_up,
+						["<C-f>"] = actions.preview_scrolling_down,
 					},
 				},
 			},
@@ -41,7 +42,12 @@ return {
 		})
 
 		-- Keymaps
-		vim.keymap.set("n", "<leader>ff", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
+		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Recent files" })
+
+		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
+		vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "Commands" })
 
 		--  Live Grep
 		vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Fuzzy Grep in files (Live Grep)" })

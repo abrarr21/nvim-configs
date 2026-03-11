@@ -1,3 +1,4 @@
+-- nvim-cmp = auto-completion engine (not ai suggestion)
 return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
@@ -92,7 +93,7 @@ return {
 			-- HACK: experimenting with ghost_text
 			-- look at `toggle_ghost_text()` function below
 			experimental = {
-				ghost_text = true,
+				ghost_text = false,
 			},
 
 			completion = {

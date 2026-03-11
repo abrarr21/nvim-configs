@@ -9,6 +9,7 @@ return {
 			-- HACK: doc @ github.com/folke/snacks.nvim/blob/main/docs
 			explorer = {
 				enabled = true,
+				hidden = true, --show hidden (dot) files by default
 				layout = {
 					cycle = false,
 				},
@@ -85,24 +86,6 @@ return {
 					},
 				},
 			},
-
-			-- Snacks dashboard
-			dashboard = {
-				enabled = true,
-				sections = {
-					{ section = "header" },
-					{ section = "keys", gap = 1, padding = 3 },
-					{ section = "startup" },
-					{
-						section = "terminal",
-						cmd = "ascii-image-converter /home/abrar/Pictures/Profiles.JPG -C -c",
-						random = 10,
-						pane = 2,
-						indent = 4,
-						height = 25,
-					},
-				},
-			},
 		},
 		keys = {
 			{
@@ -122,7 +105,7 @@ return {
 			{
 				"<leader>e",
 				function()
-					require("snacks").explorer()
+					require("snacks").explorer({ hidden = true })
 				end,
 				desc = "Open Snacks Explorer ",
 			},
@@ -134,9 +117,9 @@ return {
 				desc = "Fast Rename Current File ",
 			},
 
-			-------------------------------------------------------------------------------------------------
-
-			-------------------------------------- Snack Picker ----------------------------------------------
+			-- -------------------------------------------------------------------------------------------------
+			--
+			-- -------------------------------------- Snack Picker ----------------------------------------------
 			-- {
 			-- 	"<leader>pf",
 			-- 	function()

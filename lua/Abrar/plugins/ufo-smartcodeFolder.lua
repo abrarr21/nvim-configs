@@ -23,3 +23,7 @@ return {
 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 	end,
 }
+
+-- za -> folds and unfolds
+-- zc -> fold the code block
+-- zo -> unford the code block

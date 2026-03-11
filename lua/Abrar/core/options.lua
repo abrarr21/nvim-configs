@@ -4,6 +4,9 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+vim.opt.cmdheight = 0
+vim.opt.laststatus = 1
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -43,3 +46,5 @@ vim.opt.mouse = "a"
 vim.g.editorconfig = true
 
 vim.opt.termguicolors = true -- Tmux & nvim color blender
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.lsp.set_log_level("ERROR")

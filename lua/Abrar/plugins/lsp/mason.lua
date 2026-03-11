@@ -48,6 +48,10 @@ return {
 			handlers = {
 				-- Default handler for all servers
 				function(server_name)
+					if server_name == "lua_ls" then
+						return
+					end
+
 					vim.lsp.config(server_name, {
 						capabilities = capabilities,
 					})
@@ -58,10 +62,11 @@ return {
 				["gopls"] = function()
 					vim.lsp.config("gopls", {
 						capabilities = capabilities,
-						root_dir = vim.fs.root(0, { "go.work", "go.mod", ".git" }),
+						root_dir = vim.fs.root(0, { "go.work", "go.mod" }),
 						settings = {
 							gopls = {
 								memoryMode = "DegradeClosed",
+								-- reduce scanning
 								directoryFilters = {
 									"-.git",
 									"-vendor",
@@ -72,12 +77,21 @@ return {
 									"-bazel-bin",
 									"-bazel-out",
 									"-bazel-testlogs",
+									"-testdata",
+									"-mock",
+									"-mocks",
 								},
 								expandWorkspaceToModule = false,
+								experimentalWorkspaceModule = false,
+
+								--disable expensive stuffs
+								staticcheck = false,
+								semanticTokens = false,
+
 								analyses = {
-									unusedparams = true,
-									nilness = true,
-									unusedwrite = true,
+									unusedparams = true, -- keep them true for small-medium level projects, consider toggling it false when large repo/projects
+									nilness = true, -- gopls warns when a function parameter is never used
+									unusedwrite = true, -- warns when you assign to a variable but never read it
 								},
 								ui = {
 									completion = {

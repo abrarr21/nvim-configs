@@ -1,3 +1,4 @@
+-- Show popupmenu at bottom-left when in command line mode
 return {
 	"gelguy/wilder.nvim",
 	-- "nvim-telescope/telescope.nvim",
@@ -15,7 +16,7 @@ return {
 		wilder.set_option(
 			"renderer",
 			wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
-				min_width = "15%", -- minimum height of the popupmenu, can also be a number
+				min_width = "12%", -- minimum height of the popupmenu, can also be a number
 				max_height = "15%", -- to set a fixed height, set max_height to the same value
 				reverse = 0, -- if 1, shows the candidates from bottom to top
 				highlighter = {
@@ -26,7 +27,7 @@ return {
 					default = wilder.make_hl(
 						"WilderPopupMenu",
 						"Pmenu",
-						{ { a = 1 }, { a = 1 }, { background = "#1E212B" } } -- Adjust background color
+						{ { a = 1 }, { a = 1 }, { background = "#011628" } } -- Adjust background color
 					),
 					accent = wilder.make_hl(
 						"WilderAccent",
@@ -36,7 +37,8 @@ return {
 				},
 				-- 'single', 'double', 'rounded' or 'solid'
 				-- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
-				border = "single",
+				-- border = "single",
+				border = "rounded",
 			}))
 		)
 	end,

@@ -1,3 +1,4 @@
+-- nvim-lspconfig = Core LSP setup (keymaps & Diagnostics)
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -80,78 +81,6 @@ return {
 			underline = true, -- Specify Underline diagnostics
 			update_in_insert = false, -- Keep diagnostics active in insert mode
 		})
-		--------------------------------------------------------------------------------
-		-- BEGIN: lua_ls fix for "undefined global 'vim'" diagnostic
-		--------------------------------------------------------------------------------
-		vim.lsp.config("lua_ls", {
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-				},
-			},
-		})
 
-		vim.lsp.enable("lua_ls")
-		--------------------------------------------------------------------------------
-		-- END: lua_ls fix for "undefined global 'vim'" diagnostic
-		--------------------------------------------------------------------------------
-
-		-- NOTE : Moved all mason_lspconfig.setup_handlers to mason.lua file
-
-		-- HACK: If using Blink.cmp Configure all LSPs here
-		-- disabled cuz blink has no tailwind support
-
-		-- ( comment the ones in mason )
-		-- local lspconfig = require("lspconfig")
-		-- local capabilities = require("blink.cmp").get_lsp_capabilities() -- Import capabilities from blink.cmp
-
-		-- Configure lua_ls
-		-- lspconfig.lua_ls.setup({
-		--     capabilities = capabilities,
-		--     settings = {
-		--         Lua = {
-		--             diagnostics = {
-		--                 globals = { "vim" },
-		--             },
-		--             completion = {
-		--                 callSnippet = "Replace",
-		--             },
-		--             workspace = {
-		--                 library = {
-		--                     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-		--                     [vim.fn.stdpath("config") .. "/lua"] = true,
-		--                 },
-		--             },
-		--         },
-		--     },
-		-- })
-		--
-		-- -- Configure tsserver (TypeScript and JavaScript)
-		-- lspconfig.ts_ls.setup({
-		--     capabilities = capabilities,
-		--     root_dir = function(fname)
-		--         local util = lspconfig.util
-		--         return not util.root_pattern('deno.json', 'deno.jsonc')(fname)
-		--             and util.root_pattern('tsconfig.json', 'package.json', 'jsconfig.json', '.git')(fname)
-		--     end,
-		--     single_file_support = false,
-		--     on_attach = function(client, bufnr)
-		--         -- Disable formatting if you're using a separate formatter like Prettier
-		--         client.server_capabilities.documentFormattingProvider = false
-		--     end,
-		--     init_options = {
-		--         preferences = {
-		--             includeCompletionsWithSnippetText = true,
-		--             includeCompletionsForImportStatements = true,
-		--         },
-		--     },
-		-- })
-
-		-- Add other LSP servers as needed, e.g., gopls, eslint, html, etc.
-		-- lspconfig.gopls.setup({ capabilities = capabilities })
-		-- lspconfig.html.setup({ capabilities = capabilities })
-		-- lspconfig.cssls.setup({ capabilities = capabilities })
 	end,
 }

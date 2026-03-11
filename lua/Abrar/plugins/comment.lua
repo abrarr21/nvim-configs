@@ -14,6 +14,7 @@ return {
 		comment.setup({
 			--for commenting tsx, jsx, html files
 			pre_hook = ts_context_commentstring.create_pre_hook(),
+			ignore = "^$", -- skip empty lines while commenting
 
 			-- Custom keybindings (optional)
 			toggler = {

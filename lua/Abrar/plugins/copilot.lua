@@ -2,16 +2,16 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-		build = ":Copilot auth",
-		event = "BufReadPost",
+		build = ":Copilot setup",
+		event = "InsertEnter",
 
 		opts = {
 			suggestion = {
-				enabled = not vim.g.ai_cmp,
+				enabled = true, -- inline suggestions
 				auto_trigger = true,
-				hide_during_completion = vim.g.ai_cmp,
+				hide_during_completion = true,
 				keymap = {
-					accept = "<M-l>",
+					accept = "<M-l>", -- Alt+l
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",
@@ -85,16 +85,16 @@ return {
 			end, {})
 
 			-- 🔧 Keymap: <leader>cc to toggle Copilot
-			vim.keymap.set("n", "<leader>cop", "<cmd>CopilotToggle<CR>", { desc = "Toggle Copilot" })
+			vim.keymap.set("n", "<leader>cp", "<cmd>CopilotToggle<CR>", { desc = "Toggle Copilot" })
 		end,
 	},
 
 	-- 🔌 Optional nvim-cmp integration
-	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = "zbirenbaum/copilot.lua",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	dependencies = "zbirenbaum/copilot.lua",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
 }

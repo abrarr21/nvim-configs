@@ -1,85 +1,19 @@
 return {
+	-- =========================================================
+	-- 🔹 Noice: main UI for messages, cmdline, LSP progress
+	-- =========================================================
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		enabled = true,
+		dependencies = { "MunifTanjim/nui.nvim" },
 		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		keys = {
-			{ "<leader>sn", "", desc = "+Noice" },
-			{
-				"<S-Enter>",
-				function()
-					require("noice").redirect(vim.fn.getcmdline())
-				end,
-				mode = "c",
-				desc = "Redirect Cmdline",
-			},
-			{
-				"<leader>snl",
-				function()
-					require("noice").cmd("last")
-				end,
-				desc = "Noice Last Message",
-			},
-			{
-				"<leader>snh",
-				function()
-					require("noice").cmd("history")
-				end,
-				desc = "Noice History",
-			},
-			{
-				"<leader>sna",
-				function()
-					require("noice").cmd("all")
-				end,
-				desc = "Noice All",
-			},
-			{
-				"<leader>snd",
-				function()
-					require("noice").cmd("dismiss")
-				end,
-				desc = "Dismiss All",
-			},
-			{
-				"<leader>snt",
-				function()
-					require("noice").cmd("pick")
-				end,
-				desc = "Noice Picker (Telescope/FzfLua)",
-			},
-			{
-				"<C-f>",
-				function()
-					if not require("noice.lsp").scroll(4) then
-						return "<C-f>"
-					end
-				end,
-				mode = { "i", "n", "s" },
-				expr = true,
-				silent = true,
-				desc = "Scroll Forward",
-			},
-			{
-				"<C-b>",
-				function()
-					if not require("noice.lsp").scroll(-4) then
-						return "<C-b>"
-					end
-				end,
-				mode = { "i", "n", "s" },
-				expr = true,
-				silent = true,
-				desc = "Scroll Backward",
-			},
-		},
 		config = function()
 			local noice = require("noice")
 
+			-- =========================================================
+			-- Full Noice setup with cmdline formatting, views, LSP, routes
+			-- =========================================================
 			noice.setup({
 				cmdline = {
 					enabled = true,
@@ -134,11 +68,77 @@ return {
 						opts = { skip = true },
 					},
 				},
-				messages = { enabled = false },
+				messages = { enabled = false }, -- don't show normal messages
 				health = { checker = true },
 				popupmenu = { enabled = true },
 				signature = { enabled = true },
 			})
+
+			-- =========================================================
+			-- Noice Keymaps
+			-- =========================================================
+			vim.keymap.set("n", "<leader>snd", function()
+				require("noice").cmd("dismiss")
+			end, { desc = "Dismiss All Noice Messages" })
+			vim.keymap.set("n", "<leader>snl", function()
+				require("noice").cmd("last")
+			end, { desc = "Noice Last Message" })
+			vim.keymap.set("n", "<leader>snh", function()
+				require("noice").cmd("history")
+			end, { desc = "Noice Message History" })
+			vim.keymap.set("n", "<leader>sna", function()
+				require("noice").cmd("all")
+			end, { desc = "Noice All Messages" })
+			vim.keymap.set("n", "<leader>snt", function()
+				require("noice").cmd("pick")
+			end, { desc = "Noice Picker" })
+
+			-- Scroll in Noice messages
+			vim.keymap.set({ "i", "n", "s" }, "<C-f>", function()
+				if not require("noice.lsp").scroll(4) then
+					return "<C-f>"
+				end
+			end, { expr = true, silent = true, desc = "Scroll Forward in Noice" })
+
+			vim.keymap.set({ "i", "n", "s" }, "<C-b>", function()
+				if not require("noice.lsp").scroll(-4) then
+					return "<C-b>"
+				end
+			end, { expr = true, silent = true, desc = "Scroll Backward in Noice" })
+		end,
+	},
+
+	-- =========================================================
+	-- 🔹 nvim-notify: fallback for plugins using vim.notify
+	-- =========================================================
+	{
+		"rcarriga/nvim-notify",
+		opts = {
+			stages = "fade",
+			timeout = 500,
+			max_height = function()
+				return math.floor(vim.o.lines * 0.75)
+			end,
+			max_width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+			on_open = function(win)
+				vim.api.nvim_win_set_config(win, { zindex = 100 })
+			end,
+		},
+		config = function(_, opts)
+			local notify = require("notify")
+			notify.setup(opts)
+
+			-- Only override vim.notify if Noice is NOT loaded
+			if not package.loaded["noice"] then
+				vim.notify = notify
+			end
+
+			-- Keymap to dismiss all notifications
+			vim.keymap.set("n", "<leader>un", function()
+				notify.dismiss({ silent = true, pending = true })
+			end, { desc = "Dismiss All Notifications" })
 		end,
 	},
 }
