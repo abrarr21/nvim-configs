@@ -143,8 +143,6 @@ return {
 			-- Setup lspkind for VS-Code pictogram in auto-completion dropdown menu
 			formatting = {
 				format = function(entry, vim_item)
-					vim_item.kind = string.format("%s %s", lspkind[vim_item.kind] or "", vim_item.kind)
-
 					-- Add menu tags (eg. [Buffer], [LSP])
 					vim_item.menu = ({
 						buffer = "[Buffer]",

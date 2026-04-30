@@ -6,7 +6,7 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		enabled = true,
-		dependencies = { "MunifTanjim/nui.nvim" },
+		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 		opts = {},
 		config = function()
 			local noice = require("noice")
@@ -105,40 +105,6 @@ return {
 					return "<C-b>"
 				end
 			end, { expr = true, silent = true, desc = "Scroll Backward in Noice" })
-		end,
-	},
-
-	-- =========================================================
-	-- 🔹 nvim-notify: fallback for plugins using vim.notify
-	-- =========================================================
-	{
-		"rcarriga/nvim-notify",
-		opts = {
-			stages = "fade",
-			timeout = 500,
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-			on_open = function(win)
-				vim.api.nvim_win_set_config(win, { zindex = 100 })
-			end,
-		},
-		config = function(_, opts)
-			local notify = require("notify")
-			notify.setup(opts)
-
-			-- Only override vim.notify if Noice is NOT loaded
-			if not package.loaded["noice"] then
-				vim.notify = notify
-			end
-
-			-- Keymap to dismiss all notifications
-			vim.keymap.set("n", "<leader>un", function()
-				notify.dismiss({ silent = true, pending = true })
-			end, { desc = "Dismiss All Notifications" })
 		end,
 	},
 }

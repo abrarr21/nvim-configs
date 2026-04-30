@@ -1,14 +1,16 @@
 return {
 	-- Tailwind color squares in nvim-cmp completion menu
+	-- formatting is handled in cmp.lua, no cmp.setup() call needed here
 	{
 		"roobert/tailwindcss-colorizer-cmp.nvim",
-		config = function()
-			require("cmp").setup({
-				formatting = {
-					format = require("tailwindcss-colorizer-cmp").formatter,
-				},
-			})
-		end,
+		opts = {},
+		-- config = function()
+		-- 	require("cmp").setup({
+		-- 		formatting = {
+		-- 			format = require("tailwindcss-colorizer-cmp").formatter,
+		-- 		},
+		-- 	})
+		-- end,
 	},
 
 	-- Buffer color highlighting
@@ -21,6 +23,8 @@ return {
 				"css",
 				"javascript",
 				"typescript",
+				"javascriptreact",
+				"typescriptreact",
 				"jsx",
 				"tsx",
 				"vue",
@@ -34,6 +38,7 @@ return {
 				RRGGBB = true,
 				AARRGGBB = true,
 				tailwind = "both",
+				mode = "background",
 			},
 		},
 	},

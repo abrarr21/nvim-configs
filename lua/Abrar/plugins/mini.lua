@@ -2,69 +2,36 @@ return {
 
 	-- Mini Nvim
 	-- { "echasnovski/mini.nvim", version = false },
-	--
-	--
 
-	-- Comments
-	-- {
-	-- 	"echasnovski/mini.comment",
-	-- 	version = false,
-	-- 	dependencies = {
-	-- 		"JoosepAlviste/nvim-ts-context-commentstring",
-	-- 	},
-	-- 	config = function()
-	-- 		-- Disable ts-context-commentstring autocommand
-	-- 		require("ts_context_commentstring").setup({
-	-- 			enable_autocmd = false,
-	-- 		})
-	--
-	-- 		-- Setup mini.comment with custom commentstring support
-	-- 		require("mini.comment").setup({
-	-- 			options = {
-	-- 				custom_commentstring = function()
-	-- 					return require("ts_context_commentstring.internal").calculate_commentstring({
-	-- 						key = "commentstring",
-	-- 					}) or vim.bo.commentstring
-	-- 				end,
-	-- 			},
-	-- 		})
-	--
-	-- 		-- Custom keymaps for comment toggling
-	-- 		local map = vim.keymap.set
-	-- 		local op = require("mini.comment").operator
-	--
-	-- 		-- Normal mode toggle
-	-- 		map("n", "<leader>cc", op, { desc = "Toggle line comment" })
-	--
-	-- 		-- Visual mode toggle
-	-- 		map("v", "<leader>c", op, { desc = "Toggle comment (visual)", expr = true })
-	-- 	end,
-	-- },
-	--
-	--
-	--
-	-- File explorer (this works properly with oil unlike nvim-tree)
-	-- {
-	-- 	"echasnovski/mini.files",
-	-- 	config = function()
-	-- 		local MiniFiles = require("mini.files")
-	-- 		MiniFiles.setup({
-	-- 			mappings = {
-	-- 				go_in = "<CR>", -- Map both Enter and L to enter directories or open files
-	-- 				go_in_plus = "L",
-	-- 				go_out = "-",
-	-- 				go_out_plus = "H",
-	-- 			},
-	-- 		})
-	-- 		vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file explorer" }) -- toggle file explorer
-	-- 		vim.keymap.set("n", "<leader>ef", function()
-	-- 			MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-	-- 			MiniFiles.reveal_cwd()
-	-- 		end, { desc = "Toggle into currently opened file" })
-	-- 	end,
-	-- },
-	--
-	--
+	-- COMMENTS
+	{
+		"echasnovski/mini.comment",
+		version = false,
+		dependencies = {
+			"JoosepAlviste/nvim-ts-context-commentstring",
+		},
+		config = function()
+			require("ts_context_commentstring").setup({
+				enable_autocmd = false,
+			})
+
+			require("mini.comment").setup({
+				options = {
+					custom_commentstring = function()
+						return require("ts_context_commentstring.internal").calculate_commentstring({
+							key = "commentstring",
+						}) or vim.bo.commentstring
+					end,
+				},
+				mappings = {
+					comment = "<leader>c",
+					comment_line = "<leader>cc",
+					comment_visual = "<leader>c",
+					textobject = "<leader>bc",
+				},
+			})
+		end,
+	},
 
 	-- Surround
 	{
@@ -91,7 +58,7 @@ return {
 		},
 	},
 
-	-- Get rid of whitespace
+	-- Get rid of WHITESPACES
 	{
 		"echasnovski/mini.trailspace",
 		event = { "BufReadPost", "BufNewFile" },
@@ -131,4 +98,28 @@ return {
 			end, { desc = "Split arguments" })
 		end,
 	},
+
+	-- Mini Explorer
+	-- {
+	-- 	"echasnovski/mini.files",
+	-- 	version = false,
+	-- 	config = function()
+	-- 		local MiniFiles = require("mini.files")
+	-- 		MiniFiles.setup({
+	-- 			mappings = {
+	-- 				go_in = "<CR>",
+	-- 				go_in_plus = "l",
+	-- 				go_out = "<BS>",
+	-- 				go_out_plus = "h",
+	-- 				synchronize = "<leader>w",
+	-- 			},
+	-- 		})
+	-- 		vim.keymap.set("n", "<leader>mf", function()
+	-- 			MiniFiles.open()
+	-- 		end, { desc = "Mini files explorer" })
+	-- 		vim.keymap.set("n", "<leader>mc", function()
+	-- 			MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	-- 		end, { desc = "Mini files: open current file" })
+	-- 	end,
+	-- },
 }

@@ -1,76 +1,67 @@
 return {
-	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPre", "BufNewFile" },
+		branch = "main",
+		version = false,
+		lazy = false,
+		build = ":TSUpdate",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
-		build = ":TSUpdate",
 		config = function()
-			-- import nvim-treesitter plugin
-			local treesitter = require("nvim-treesitter.configs")
+			local ts = require("nvim-treesitter")
 
-			-- configure treesitter
-			treesitter.setup({ -- enable syntax highlighting
-				highlight = {
-					enable = true,
-				},
-				-- enable indentation
+			-- NEW API: setup() only takes highlight/indent/folds now
+			ts.setup({
+				highlight = { enable = true },
 				indent = { enable = true },
-
-				-- ensure these languages parsers are installed
-				ensure_installed = {
-					"json",
-					"javascript",
-					"typescript",
-					"tsx",
-					"go",
-					"yaml",
-					"html",
-					"css",
-					"python",
-					"lua",
-					"vim",
-					"dockerfile",
-				},
-				sync_install = false,
-				auto_install = true,
-
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-space>",
-						node_incremental = "<C-space>",
-						node_decremental = "<bs>",
-						scope_incremental = false,
-					},
-				},
-				additional_vim_regex_highlighting = false,
 			})
+
+			-- ensure_installed is now done via install(), not setup()
+			local ensure_installed = {
+				"json",
+				"javascript",
+				"typescript",
+				"tsx",
+				"go",
+				"yaml",
+				"html",
+				"css",
+				"python",
+				"lua",
+				"vim",
+				"vimdoc",
+				"dockerfile",
+				"markdown",
+				"markdown_inline", -- needed by render-markdown.nvim
+			}
+			-- only install missing parsers, not all on every startup
+			local installed = require("nvim-treesitter.config").get_installed()
+			local to_install = vim.tbl_filter(function(p)
+				return not vim.tbl_contains(installed, p)
+			end, ensure_installed)
+			if #to_install > 0 then
+				ts.install(to_install)
+			end
+
+			-- incremental selection is now a Neovim builtin (v_an, v_in etc.)
+			-- use <C-space> to start visual then an/in to expand/contract
+			vim.keymap.set("n", "<C-space>", "van", { remap = true, desc = "Start treesitter node selection" })
 		end,
 	},
-
-	-- NOTE: js,ts,jsx,tsx Auto Close Tags
-
 	{
 		"windwp/nvim-ts-autotag",
-		ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte" },
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			-- Independent nvim-ts-autotag setup
 			require("nvim-ts-autotag").setup({
 				opts = {
-					enable_close = true, -- Auto-close tags
-					enable_rename = true, -- Auto-rename pairs
-					enable_close_on_slash = false, -- Disable auto-close on trailing `</`
+					enable_close = true,
+					enable_rename = true,
+					enable_close_on_slash = false,
 				},
 				per_filetype = {
-					["html"] = {
-						enable_close = true, -- Disable auto-closing for HTML
-					},
-					["typescriptreact"] = {
-						enable_close = true, -- Explicitly enable auto-closing (optional, defaults to `true`)
-					},
+					["html"] = { enable_close = true },
+					["typescriptreact"] = { enable_close = true },
 				},
 			})
 		end,

@@ -8,6 +8,29 @@ return {
 	},
 	keys = {
 		{
+			"f",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").jump({
+					search = { mode = "search" },
+					label = { after = false, before = true },
+				})
+			end,
+			desc = "Flash f",
+		},
+		{
+
+			"F",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").jump({
+					search = { mode = "search", forward = false },
+					label = { after = false, before = true },
+				})
+			end,
+			desc = "Flash F",
+		},
+		{
 			"zk",
 			mode = { "n", "x", "o" },
 			function()

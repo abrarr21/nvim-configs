@@ -36,6 +36,9 @@ return {
 		vim.keymap.set("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer (Tab)" })
 		vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer (Shift+Tab)" })
 
+		-- Close all buffers except current
+		vim.keymap.set("n", "<leader>da", ":silent! %bd|e#|bd#<CR>", { desc = "Close all buffers except current" })
+
 		-- Tab management keymaps removed as it isn't used. Add here if needed.
 
 		-- Show LSP diagnostics in bufferline faster

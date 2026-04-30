@@ -15,8 +15,8 @@ return {
 			stop_eof = false,
 			respect_scrolloff = false,
 			cursor_scrolls_alone = true,
-			duration_multiplier = 1.0,
-			easing = "linear",
+			duration_multiplier = 0.7,
+			easing = "quadratic", -- linear, quadratic
 			pre_hook = nil,
 			post_hook = nil,
 			performance_mode = false,

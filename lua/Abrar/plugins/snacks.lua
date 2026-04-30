@@ -19,6 +19,13 @@ return {
 				exclude = { "latex" },
 			},
 
+			-- snack notifier
+			notifier = {
+				enabled = true,
+				timeout = 2000,
+				style = "fancy",
+			},
+
 			-- Snacks Picker
 			--HACK: read picker doc @ github.com/folke/snack.nvim/blob/man/docs/picker.md
 			picker = {
@@ -98,113 +105,117 @@ return {
 			{
 				"<leader>gl",
 				function()
-					require("snacks").lazygit().log()
+					require("snacks").lazygit.log()
 				end,
 				desc = "Lazygit Logs",
 			},
 			{
-				"<leader>e",
+				"<C-p>",
 				function()
 					require("snacks").explorer({ hidden = true })
 				end,
 				desc = "Open Snacks Explorer ",
 			},
+
+			-- -------------------------------------- Snack Picker ----------------------------------------------
 			{
-				"<leader>rn",
+				"<leader>ff",
 				function()
-					require("snacks").rename.rename_file()
+					require("snacks").picker.files()
 				end,
-				desc = "Fast Rename Current File ",
+				desc = "Find Files",
+			},
+			{
+				"<leader>fr",
+				function()
+					require("snacks").picker.recent()
+				end,
+				desc = "Recent Files",
+			},
+			{
+				"<leader>fc",
+				function()
+					require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
+				end,
+				desc = "Find Config File",
+			},
+			-- Grep
+			{
+				"<leader>fg",
+				function()
+					require("snacks").picker.grep()
+				end,
+				desc = "Live Grep",
+			},
+			{
+				"<leader>fw",
+				function()
+					require("snacks").picker.grep_word()
+				end,
+				desc = "Grep Word Under Cursor",
+				mode = { "n", "x" },
+			},
+			-- Buffers
+			{
+				"<leader>fb",
+				function()
+					require("snacks").picker.buffers()
+				end,
+				desc = "Find Buffers",
+			},
+			-- Help & keymaps
+			{
+				"<leader>fh",
+				function()
+					require("snacks").picker.help()
+				end,
+				desc = "Help Tags",
+			},
+			{
+				"<leader>fk",
+				function()
+					require("snacks").picker.keymaps()
+				end,
+				desc = "Keymaps",
+			},
+			{
+				"<leader>fo",
+				function()
+					require("snacks").picker.commands()
+				end,
+				desc = "Commands",
+			},
+			-- Theme switcher
+			{
+				"<leader>ft",
+				function()
+					require("snacks").picker.colorschemes()
+				end,
+				desc = "Theme Switcher",
+			},
+			-- Git
+			{
+				"<leader>gbr",
+				function()
+					require("snacks").picker.git_branches()
+				end,
+				desc = "Git Branches",
 			},
 
-			-- -------------------------------------------------------------------------------------------------
-			--
-			-- -------------------------------------- Snack Picker ----------------------------------------------
-			-- {
-			-- 	"<leader>pf",
-			-- 	function()
-			-- 		require("snacks").picker.files()
-			-- 	end,
-			-- 	desc = "Find Files (Snack Picker) ",
-			-- },
-			-- {
-			-- 	"<leader>pc",
-			-- 	function()
-			-- 		require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
-			-- 	end,
-			-- 	desc = "Find Config File ",
-			-- },
-			-- {
-			-- 	"<leader>ps",
-			-- 	function()
-			-- 		require("snacks").picker.grep()
-			-- 	end,
-			-- 	desc = "Grep Word ",
-			-- },
-			-- {
-			-- 	"<leader>pws",
-			-- 	function()
-			-- 		require("snacks").picker.grep_word()
-			-- 	end,
-			-- 	desc = "Search Visual selection or Word",
-			-- 	mode = { "n", "x" },
-			-- },
-			-- {
-			-- 	"<leader>pk",
-			-- 	function()
-			-- 		require("snacks").picker.keymaps({ layout = "ivy" })
-			-- 	end,
-			-- 	desc = "Search Keymaps (Snacks Picker)",
-			-- },
-			-- {
-			-- 	"<leader>pb",
-			-- 	function()
-			-- 		require("snacks").picker.buffers({ layout = "telescope" })
-			-- 	end,
-			-- 	desc = "Find Active Buffers (Snacks Picker)",
-			-- },
-			-- {
-			-- 	"<leader>gbr",
-			-- 	function()
-			-- 		require("snacks").picker.git_branches({ layout = "select" })
-			-- 	end,
-			-- 	desc = "Pick and Switch Git Branch ",
-			-- },
-			-- {
-			-- 	"<leader>th",
-			-- 	function()
-			-- 		require("snacks").picker.colorschemes({ layout = "ivy" })
-			-- 	end,
-			-- 	desc = "Pick Color Scheme ",
-			-- },
-			-- {
-			-- 	"<leader>vh",
-			-- 	function()
-			-- 		require("snacks").picker.help()
-			-- 	end,
-			-- 	desc = "Help Page ",
-			-- },
-			-- --------------------------------------------------------------------------------------------------------
-		},
-	},
-
-	{
-		"folke/todo-comments.nvim",
-		events = { "BufReadPre", "BufNewFile" },
-		keys = {
+			-- notification keys
 			{
-				"<leader>pt",
+				"<leader>un",
 				function()
-					require("snacks").picker.todo_comments()
+					require("snacks").notifier.hide()
 				end,
-				desc = "Todo",
-			}, -- Find all the TODO comments (todo/fix/fixme)
+				desc = "Dismiss All Notifications",
+			},
 			{
-				"<leader>pT",
+				"<leader>nh",
 				function()
-					require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+					require("snacks").picker.notifications()
 				end,
-				desc = "Todo/fix/fixme",
+				desc = "Notification History",
 			},
 		},
 	},
